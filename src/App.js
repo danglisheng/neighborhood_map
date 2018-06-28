@@ -24,7 +24,7 @@ class App extends Component {
     /* 在App组件安装后，同时异步加载位置数据和地图API,并在它们的回调函数中做判断，仅当两者都加载完成，才在地图上添加标记。*/
     componentDidMount() {
         /* 获取位置数据 */
-        Utils.fetchData("/data/poi.json", (data, error) => {
+        Utils.fetchData("./data/poi.json", (data, error) => {
             if (data) {
                 const { isMapLoaded, isMarkersAdded } = this.state;
                 const locations = Utils.getLocations(data);

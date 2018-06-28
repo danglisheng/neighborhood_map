@@ -275,7 +275,7 @@ class Utils {
         var closeButton = document.createElement("img");
         infoTop.className = "info-top";
         infoTitle.innerHTML = title;
-        closeButton.src = "/img/closeBtn.gif";
+        closeButton.src = "./img/closeBtn.gif";
         closeButton.setAttribute("tabindex","0");
         closeButton.setAttribute("aria-label","信息窗体关闭按钮");
         closeButton.addEventListener("click", Utils.closeInfoWindow);
@@ -298,7 +298,7 @@ class Utils {
         var infoBottom = document.createElement("div");
         var sharp = document.createElement("img");
         infoBottom.className = "info-bottom";
-        sharp.src = "/img/sharp.png";
+        sharp.src = "./img/sharp.png";
         
         infoBottom.appendChild(sharp);
         info.appendChild(infoBottom);
