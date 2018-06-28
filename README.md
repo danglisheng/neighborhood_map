@@ -3,6 +3,7 @@
 ## 内容列表
 
 - [可用脚本](#可用脚本)
+  - [npm install](#npm install)
   - [yarn start](#yarn-start)
   - [yarn build](#yarn-build)
 - [程序流程图](#程序流程图)
@@ -12,7 +13,8 @@
 ## 可用脚本
 
 在项目目录下，你可以运行以下指令：
-
+### `npm install`
+安装项目所需依赖
 ### `npm start`(或`yarn start`)
 
 在开发模式下运行应用。<br>
