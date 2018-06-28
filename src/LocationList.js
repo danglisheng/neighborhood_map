@@ -7,7 +7,9 @@ class LocationList extends Component {
 		this.listNode=React.createRef();
 		this.locClickHandler=this.locClickHandler.bind(this);
 	}
-	locClickHandler(clickedLocation){
+	locClickHandler(clickedLocation,e){
+		// console.log(e);
+		e.preventDefault();
 		const markers=this.props.markers;
 		var listNode=this.listNode.current;
 		/* 若标记数组的长度不为零 */

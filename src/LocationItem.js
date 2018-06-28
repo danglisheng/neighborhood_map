@@ -18,7 +18,7 @@ class LocationItem extends Component {
 					tabIndex="0"
 					ref={this.locationItem}
 					onKeyDown={this.locEnterHandler}
-					onClick={()=>{this.props.locClickHandler(this.locationItem.current)}}>
+					onClick={(e)=>{this.props.locClickHandler(this.locationItem.current,e)}}>
 					{location.name}</li>
 
 			)

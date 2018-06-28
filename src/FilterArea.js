@@ -12,7 +12,7 @@ class FilterArea extends Component {
 				<div className="filter-select">
 					<label htmlFor="locationSelect">地点类型</label>
 					<select id="locationSelect" 
-					onChange={()=>{filterLocsBySelect(true)}}
+					onChange={(e)=>{filterLocsBySelect(true,e)}}
 					aria-describedby="locTypeDescription">
 						<option value="all">所有类型</option>
 						<option value="touristAttraction">旅游景点</option>
@@ -26,7 +26,7 @@ class FilterArea extends Component {
 					 id="filterText"
 					ref={ this.textInputNode }
 					aria-label="在此输入用于过滤地点列表的关键字"></input>
-					<button onClick={()=>{filterLocsByKeyword(this.textInputNode.current)}} aria-label="点击按钮后用文本框中输入的字符过滤地点列表">过滤</button>
+					<button onClick={(e)=>{filterLocsByKeyword(this.textInputNode.current,e)}} aria-label="点击按钮后用文本框中输入的字符过滤地点列表">过滤</button>
 				</div>
 			</div>
 			)

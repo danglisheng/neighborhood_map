@@ -83,7 +83,9 @@ class App extends Component {
      * 指示此程序是否由下拉列表的change事件直接触发
      * 函数返回筛选后的地点数组。
      */
-    filterLocsBySelect(isInvokedBySelect) {
+    filterLocsBySelect(isInvokedBySelect,e) {
+        // console.log(e);
+        e.preventDefault();
         const locations = this.state.locations;
         const markers = this.state.markersArr;
         const selectNode = document.getElementById("locationSelect");
@@ -124,7 +126,8 @@ class App extends Component {
     /* 筛选按钮的click事件的事件处理程序
      * 它会根据文本输入框的值对地点数组进行筛选
      */
-    filterLocsByKeyword(textInputNode) {
+    filterLocsByKeyword(textInputNode,e) {
+        e.preventDefault();
         const markers = this.state.markersArr;
         /* 关键词筛选所用地点数组来自下拉菜单筛选所得的结果*/
         var displayedLocations = this.filterLocsBySelect();
