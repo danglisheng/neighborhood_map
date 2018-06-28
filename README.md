@@ -53,3 +53,7 @@
 ![信息窗体关闭按钮的click事件处理程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/%E4%BF%A1%E6%81%AF%E7%AA%97%E4%BD%93%E5%85%B3%E9%97%AD%E6%8C%89%E9%92%AE%E7%9A%84click%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 ![window.initMap()的程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/window.initMap()%E7%9A%84%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE%20.png)
+
+##使用的第三方API
+    本项目使用了高德地图API和维基百科API，它们的参考手册链接如下：[高德地图API](http://lbs.amap.com/api/javascript-api/reference/core),
+    [维基百科API](https://www.mediawiki.org/wiki/API:Main_page/zh)
