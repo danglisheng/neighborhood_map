@@ -32,3 +32,13 @@
 你的应用达到可以部署的条件了。
 
 ## 程序流程图
+![主程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/%E4%B8%BB%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+主程序流程图<br>
+![下拉菜单的change事件处理程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/%E4%B8%8B%E6%8B%89%E8%8F%9C%E5%8D%95%E7%9A%84change%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+下拉菜单的change事件处理程序流程图<br>
+![筛选按钮的click事件处理程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/%E7%AD%9B%E9%80%89%E6%8C%89%E9%92%AE%E7%9A%84click%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE%20.png)
+筛选按钮的click事件处理程序流程图<br>
+![地点列表项的click事件处理程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/%E5%9C%B0%E7%82%B9%E5%88%97%E8%A1%A8%E9%A1%B9%E7%9A%84click%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+地点列表项的click事件处理程序流程图<br>
+![markerAniForClickedLoc()的程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/markerAniForClickedLoc()%E7%9A%84%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+markerAniForClickedLoc()的程序流程图<br>
