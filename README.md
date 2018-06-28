@@ -3,7 +3,7 @@
 ## 内容列表
 
 - [可用脚本](#可用脚本)
-  - [npm install](#npm install)
+  - [npm install](#npm_install)
   - [yarn start](#yarn-start)
   - [yarn build](#yarn-build)
 - [程序流程图](#程序流程图)
