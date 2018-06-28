@@ -251,7 +251,7 @@ class Utils {
                 if (imgUrl) {
                     document.getElementById("scenicPhoto").setAttribute("src", imgUrl);
                 } else {
-                    document.getElementById("scenicPhoto").setAttribute("src", "/img/nopic.png");
+                    document.getElementById("scenicPhoto").setAttribute("src", "./img/nopic.png");
                     document.getElementById("scenicPhoto").setAttribute("alt", "用于指示找不到相关照片的占位图片");
                 }
 
