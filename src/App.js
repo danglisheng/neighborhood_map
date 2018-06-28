@@ -68,7 +68,10 @@ class App extends Component {
                 this.setState({ markersArr: markersArr });
             }
             /* 使用tab键切换焦点时，忽略#map元素中的object元素*/
-            this.map.current.querySelector("object").setAttribute("tabindex", "-1");
+            if(this.map.current.querySelector("object")){
+              this.map.current.querySelector("object").setAttribute("tabindex", "-1");  
+            }
+            
         };
         /* 加载高德地图API */
         Utils.loadAmapAPI();
