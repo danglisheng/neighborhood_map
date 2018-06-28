@@ -68,7 +68,7 @@ class Utils {
     /* 此函数用于异步加载地图API*/
     static loadAmapAPI() {
         var url =
-            "http://webapi.amap.com/maps?v=1.4.6&key=bc761df960968be4a924db1a2d61b4eb&callback=initMap";
+            "https://webapi.amap.com/maps?v=1.4.6&key=bc761df960968be4a924db1a2d61b4eb&callback=initMap";
         var jsapi = document.createElement("script");
         jsapi.charset = "utf-8";
         jsapi.async = true;
