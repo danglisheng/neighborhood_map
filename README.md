@@ -1,5 +1,5 @@
 本项目是用[Create React App](https://github.com/facebookincubator/create-react-app)引导的。由于用create-react-app引导的项目默认不支持缓存动态内容的配置选项，我在项目目录下运行了`npm run eject`命令，移除了项目里的单一构建依赖。
-
+本项目在github上的部署地址为:[街区地图](https://danglisheng.github.io/neighborhood_map/)
 ## 内容列表
 
 - [可用脚本](#可用脚本)
