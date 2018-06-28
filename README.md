@@ -55,5 +55,4 @@
 ![window.initMap()的程序流程图](https://github.com/danglisheng/neighborhood_map/raw/master/program_flow_chart/window.initMap()%E7%9A%84%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE%20.png)
 
 ## 使用的第三方API
-    本项目使用了高德地图API和维基百科API，它们的参考手册链接如下：[高德地图API](http://lbs.amap.com/api/javascript-api/reference/core),
-    [维基百科API](https://www.mediawiki.org/wiki/API:Main_page/zh)
+本项目使用了高德地图API和维基百科API，它们的参考手册链接如下：[高德地图API](http://lbs.amap.com/api/javascript-api/reference/core),[维基百科API](https://www.mediawiki.org/wiki/API:Main_page/zh)      
