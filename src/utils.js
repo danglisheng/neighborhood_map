@@ -9,12 +9,9 @@ class Utils {
      */
     static _fetch(fetchPromise, timeout) {
         var abort_promise = new Promise(function(resolve, reject) {
-            setTimeout(reject, timeout, 'abort promise');
+            setTimeout(reject, timeout, "abort promise");
         });
-        var abortable_promise = Promise.race([
-            fetchPromise,
-            abort_promise
-        ]);
+        var abortable_promise = Promise.race([fetchPromise, abort_promise]);
         return abortable_promise;
     }
     /* 获取服务器上的json格式文件，
@@ -57,11 +54,11 @@ class Utils {
     static getLocations(locations) {
         var keys = Object.keys(locations);
         const locationArr = [];
-        keys.forEach((key) => {
-            locations[key].forEach((location) => {
+        keys.forEach(key => {
+            locations[key].forEach(location => {
                 location.type = key;
                 locationArr.push(location);
-            })
+            });
         });
         return locationArr;
     }
@@ -77,7 +74,7 @@ class Utils {
             console.log("File loaded error", error);
             const mapContainer = document.getElementById("map");
             mapContainer.innerHTML = "地图加载失败,请刷新浏览器重试";
-        }
+        };
         document.body.appendChild(jsapi);
     }
     /* 此函数用于为单个位置添加标记 */
@@ -85,7 +82,7 @@ class Utils {
         const marker = new AMap.Marker({
             map: window.map,
             position: location.position
-        })
+        });
         marker.id = location.id;
         marker.name = location.name;
         marker.type = location.type;
@@ -94,40 +91,38 @@ class Utils {
     /* 该函数用于初始化所有标记 */
     static initAllMarkers(locations) {
         const markersArr = [];
-        locations.forEach((location) => {
+        locations.forEach(location => {
             markersArr.push(Utils.addMarkerForLocation(location));
         });
         /* 当所有标记都被添加到地图后，再为它们一一绑定事件*/
-        markersArr.forEach((marker) => {
+        markersArr.forEach(marker => {
             AMap.event.addListener(marker, "click", function() {
                 /* 点击标记时，打开信息窗体*/
                 Utils.populateInfoWindow(marker);
                 /* 未被点击的所有标记都取消动画 */
-                markersArr.forEach((mk) => {
+                markersArr.forEach(mk => {
                     if (mk.id !== marker.id) {
-                        mk.setAnimation('AMAP_ANIMATION_NONE');
+                        mk.setAnimation("AMAP_ANIMATION_NONE");
                     }
                 });
-                
-                var highlight=document.querySelector(".location-focus");
-                var relatedLoc=document.getElementById(marker.id);
+
+                var highlight = document.querySelector(".location-focus");
+                var relatedLoc = document.getElementById(marker.id);
                 /* 如果存在高亮的地点项 */
-                if(highlight){
+                if (highlight) {
                     /* 如果点击标记不对应高亮地点项，取消该高亮，
                      * 并为点击标记对应的地点项增加高亮。
                      */
-                    if(highlight.id!==marker.id.toString()){
+                    if (highlight.id !== marker.id.toString()) {
                         highlight.classList.remove("location-focus");
                         relatedLoc.classList.add("location-focus");
                     }
-                }
+                } else {
                 /* 若不存在高亮地点项，则为点击标记所对应的地点项添加高亮。*/
-                else {
                     relatedLoc.classList.add("location-focus");
                 }
-                
             });
-        })
+        });
         /* 返回包含所有标记的数组 */
         return markersArr;
     }
@@ -135,131 +130,152 @@ class Utils {
     static markerAniForClickedLoc(marker, locationNode) {
         /* 若列表中被点击的地点项处于高亮状态，则取消对应标记的动画效果*/
         if (locationNode.classList.contains("location-focus")) {
-            marker.setAnimation('AMAP_ANIMATION_NONE');
-        }
+            marker.setAnimation("AMAP_ANIMATION_NONE");
+        } else {
         /* 若被点击的地点项非高亮，则为对应标记添加弹跳动画*/
-        else {
-            marker.setAnimation('AMAP_ANIMATION_BOUNCE');
+            marker.setAnimation("AMAP_ANIMATION_BOUNCE");
         }
     }
     /* 该函数用于通过下拉菜单来过滤标记，传入两个参数：
      * 要过滤的标记数组markers和地点类型locationType  
      */
     static filterMarkersBySelect(markers, locationType) {
-        markers.forEach((marker) => {
-            marker.setAnimation('AMAP_ANIMATION_NONE'); //取消所有标记动画
+        markers.forEach(marker => {
+            marker.setAnimation("AMAP_ANIMATION_NONE"); //取消所有标记动画
             /* 如果标记的类型和所选地点项类型相同，则显示，否则隐藏*/
             if (marker.type !== locationType) {
                 marker.hide();
             } else {
                 marker.show();
             }
-        })
+        });
     }
     /* 该函数用于通过关键字来过滤标记，传入两个参数：
      * 要过滤的标记数组markers和用于显示的地点数组displayedLocations
      */
     static filterMarkersByKeyword(markers, displayedLocations) {
-        markers.forEach((marker) => {
+        markers.forEach(marker => {
             marker.hide();
-            displayedLocations.forEach((location) => {
+            displayedLocations.forEach(location => {
                 if (location.id === marker.id) {
                     marker.show();
                 }
-            })
-        })
+            });
+        });
     }
     /* 该函数用于显示所有标记，需传入一个参数：
      * 要显示的标记数组。
      */
     static showAllMarkers(markers) {
-        markers.forEach((marker) => {
+        markers.forEach(marker => {
             marker.show();
-        })
+        });
     }
     /* 该函数用于填充信息窗体 
      * 它接收两个参数：标记marker和代表列表中被点击地点项的DOM节点
      * 第二个参数为可选参数。
      */
     static populateInfoWindow(marker, locationNode) {
-        if (window.infoWindow.marker!==marker) {
+        if (window.infoWindow.marker !== marker) {
             window.infoWindow.marker = marker;
-            var info = Utils.createInfoWindow(marker.name, Utils.createInfoWinContent(marker));
+            var info = Utils.createInfoWindow(
+                marker.name,
+                Utils.createInfoWinContent(marker)
+            );
             window.infoWindow.setContent(info);
             window.infoWindow.setPosition(marker.getPosition());
 
-            var focusedElementBeforeInfo=document.activeElement;
+            var focusedElementBeforeInfo = document.activeElement;
             window.infoWindow.open(window.map, marker.getPosition());
-            var infoDOMNode=document.querySelector(".info");
-            infoDOMNode.addEventListener("keydown",function(e){
+            var infoDOMNode = document.querySelector(".info");
+            infoDOMNode.addEventListener("keydown", function(e) {
                 /* 如果按下的是tab键，则把焦点锁定在关闭按钮 */
-                if(e.keyCode===9){
+                if (e.keyCode === 9) {
                     e.preventDefault();
-                    var closeBtn=document.querySelector(".info-top img");
+                    var closeBtn = document.querySelector(".info-top img");
                     closeBtn.focus();
-                }
+                } else if (e.keyCode === 27) {
                 /* 如果按下的是esc键，则关闭信息窗体*/
-                else if(e.keyCode===27){
                     Utils.closeInfoWindow();
-
                 }
-            })
-            infoDOMNode.setAttribute("tabindex","0");
+            });
+            infoDOMNode.setAttribute("tabindex", "0");
             infoDOMNode.focus();
-            infoDOMNode.setAttribute("aria-label","这是用于显示关于标记的额外信息的信息窗体");
+            infoDOMNode.setAttribute(
+                "aria-label",
+                "这是用于显示关于标记的额外信息的信息窗体"
+            );
             /* 为信息窗体绑定关闭事件 */
-            var closeHandler=AMap.event.addListener(window.infoWindow, 'close', function() {
-
-                marker.setAnimation('AMAP_ANIMATION_NONE'); //取消标记动画
-                window.infoWindow.marker = null;
-                AMap.event.removeListener(closeHandler);
-                focusedElementBeforeInfo.focus();
-
-            })
-
-       }
-       else {
-        /* 若点击地点项而调用的此函数，则关闭窗口。
+            var closeHandler = AMap.event.addListener(
+                window.infoWindow,
+                "close",
+                function() {
+                    marker.setAnimation("AMAP_ANIMATION_NONE"); //取消标记动画
+                    window.infoWindow.marker = null;
+                    AMap.event.removeListener(closeHandler);
+                    focusedElementBeforeInfo.focus();
+                }
+            );
+        } else {
+            /* 若点击地点项而调用的此函数，则关闭窗口。
          * 若点击标记调用的此函数，则什么都不做。
         */
-        if (locationNode){
-            window.infoWindow.close();
-            
+            if (locationNode) {
+                window.infoWindow.close();
+            }
         }
-       }
     }
     /* 创建信息窗体的内容 */
     static createInfoWinContent(marker) {
-        var url = "https://zh.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=extracts|pageimages&exintro=true&exsentences=2&explaintext=true&piprop=original&origin=*&titles=";
+        var url =
+            "https://zh.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=extracts|pageimages&exintro=true&exsentences=2&explaintext=true&piprop=original&origin=*&titles=";
         var requrl = url + marker.name;
-        var content = "<div><p>" + marker.name + "</p><figure class=\"scenic-photo-wrapper\"><img id='scenicPhoto' alt=\"" + marker.name + "\"/></figure><p id='extract'></p></div>";
+        var content =
+            "<div><p>" +
+            marker.name +
+            '</p><figure class="scenic-photo-wrapper"><img id=\'scenicPhoto\' alt="' +
+            marker.name +
+            "\"/></figure><p id='extract'></p></div>";
         Utils.fetchData(requrl, function(data, error) {
             Utils.removeLoader(document.querySelector(".info-middle"));
             if (data) {
-                var page = data.query && data.query.pages && data.query.pages[0];
+                var page =
+                    data.query && data.query.pages && data.query.pages[0];
                 var extract = page && page.extract;
                 var imgUrl = page && page.original && page.original.source;
                 if (extract) {
-
                     document.getElementById("extract").innerHTML = extract;
                 } else {
-                    document.getElementById("extract").innerHTML = "抱歉，中文维基百科没有关于" + marker.name + "的词条";
-                    document.querySelector(".scenic-photo-wrapper").style.display = "none";
+                    document.getElementById("extract").innerHTML =
+                        "抱歉，中文维基百科没有关于" + marker.name + "的词条";
+                    document.querySelector(
+                        ".scenic-photo-wrapper"
+                    ).style.display =
+                        "none";
                 }
-
 
                 if (imgUrl) {
-                    document.getElementById("scenicPhoto").setAttribute("src", imgUrl);
+                    document
+                        .getElementById("scenicPhoto")
+                        .setAttribute("src", imgUrl);
                 } else {
-                    document.getElementById("scenicPhoto").setAttribute("src", "./img/nopic.png");
-                    document.getElementById("scenicPhoto").setAttribute("alt", "用于指示找不到相关照片的占位图片");
+                    document
+                        .getElementById("scenicPhoto")
+                        .setAttribute("src", "./img/nopic.png");
+                    document
+                        .getElementById("scenicPhoto")
+                        .setAttribute(
+                            "alt",
+                            "用于指示找不到相关照片的占位图片"
+                        );
                 }
-
             }
             if (error) {
-                console.log('error: ', error);
-                document.querySelector(".scenic-photo-wrapper").style.display = "none";
-                document.getElementById("extract").innerHTML = "亲，您需要科学上网，才能查看从中文维基百科获取的信息。"
+                console.log("error: ", error);
+                document.querySelector(".scenic-photo-wrapper").style.display =
+                    "none";
+                document.getElementById("extract").innerHTML =
+                    "亲，您需要科学上网，才能查看从中文维基百科获取的信息。";
             }
         });
 
@@ -276,21 +292,22 @@ class Utils {
         infoTop.className = "info-top";
         infoTitle.innerHTML = title;
         closeButton.src = "./img/closeBtn.gif";
-        closeButton.setAttribute("tabindex","0");
-        closeButton.setAttribute("aria-label","信息窗体关闭按钮");
+        closeButton.setAttribute("tabindex", "0");
+        closeButton.setAttribute("aria-label", "信息窗体关闭按钮");
         closeButton.addEventListener("click", Utils.closeInfoWindow);
-        closeButton.addEventListener("keydown",function(e){
-            if(e.keyCode===13){
+        closeButton.addEventListener("keydown", function(e) {
+            if (e.keyCode === 13) {
                 Utils.closeInfoWindow();
             }
-        })
+        });
         infoTop.appendChild(infoTitle);
         infoTop.appendChild(closeButton);
         info.appendChild(infoTop);
 
         var infoMiddle = document.createElement("div");
         infoMiddle.className = "info-middle";
-        infoMiddle.innerHTML = content + "<span class=\"info-footer\">此信息来自中文维基百科</span>";
+        infoMiddle.innerHTML =
+            content + '<span class="info-footer">此信息来自中文维基百科</span>';
         info.appendChild(infoMiddle);
         /* 添加加载显示器 */
         Utils.addLoader(infoMiddle);
@@ -299,7 +316,7 @@ class Utils {
         var sharp = document.createElement("img");
         infoBottom.className = "info-bottom";
         sharp.src = "./img/sharp.png";
-        
+
         infoBottom.appendChild(sharp);
         info.appendChild(infoBottom);
 
@@ -308,24 +325,29 @@ class Utils {
     /* 信息窗体关闭按钮的click事件处理程序 */
     static closeInfoWindow() {
         window.infoWindow.close();
-        if(document.querySelector(".location-focus")){
-            
-            document.querySelector(".location-focus").classList.remove("location-focus");
-
-                    }
+        if (document.querySelector(".location-focus")) {
+            document
+                .querySelector(".location-focus")
+                .classList.remove("location-focus");
+        }
     }
     /* 当改变窗口大小时，重置菜单状态。此函数是为了防止在PC端小窗口下打开菜单，然后把窗口拉大后，同时应用小窗口下菜单打开时的样式和大窗口下的样式，而使页面错乱*/
-    static resetMenuWhileResizeWin(){
-        const body=document.querySelector("body");
-        window.addEventListener("resize",function(){
-            if(body.classList.contains("open")) {
-                var menuBtn=document.querySelector("#menu-btn");
-                var controlPanel=document.querySelector(".control-panel");
-                body.classList.remove("open");
-                menuBtn.className="fas fa-bars";
-                controlPanel.classList.remove("controlPanel-is-open");
+    static resetMenuWhileResizeWin() {
+        const body = document.querySelector("body");
+        let lastWinWidth = window.innerWidth;
+        window.addEventListener("resize", function() {
+            let curWinWidth = window.innerWidth;
+            if (curWinWidth !== lastWinWidth) {
+                if (body.classList.contains("open")) {
+                    var menuBtn = document.querySelector("#menu-btn");
+                    var controlPanel = document.querySelector(".control-panel");
+                    body.classList.remove("open");
+                    menuBtn.className = "fas fa-bars";
+                    controlPanel.classList.remove("controlPanel-is-open");
+                }
+                lastWinWidth = curWinWidth;
             }
         });
     }
 }
-export default Utils
+export default Utils;

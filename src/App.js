@@ -75,8 +75,8 @@ class App extends Component {
         };
         /* 加载高德地图API */
         Utils.loadAmapAPI();
-        /* 当改变窗口大小时，重置菜单状态*/
-        //Utils.resetMenuWhileResizeWin();
+        /* 当改变窗口宽度时，重置菜单状态*/
+        Utils.resetMenuWhileResizeWin();
     }
     /* 下拉菜单的change事件的事件处理程序
      * 它接收一个布尔值isInvokedBySelect作为参数，
