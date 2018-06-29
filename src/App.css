@@ -70,9 +70,24 @@ body.open .control-panel {
   display:block;
   margin-left: -250px;
 }
+#map-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+}
+@media screen and (min-width:1025px) {
+  #map-wrapper {
+    width:70%;
+    right:0;
+    left:auto;
+  }
+}
 #map {
   width: 100%;
-  height: calc(100vh - 40px);
+  height: 100%;
   background-color: #b3b3b3;
 }
 body.open #map {
@@ -98,10 +113,7 @@ label[for="locationSelect"],
     width:70%;
     float: right;
   }
-  #map {
-    width:70%;
-    float:right;
-  }
+  
   label[for="locationSelect"],
 #locationSelect,
 #filterText,

@@ -84,8 +84,11 @@ class App extends Component {
      * 函数返回筛选后的地点数组。
      */
     filterLocsBySelect(isInvokedBySelect,e) {
-        // console.log(e);
-        e.preventDefault();
+        
+        if(e) {
+            e.preventDefault();
+        }
+        
         const locations = this.state.locations;
         const markers = this.state.markersArr;
         const selectNode = document.getElementById("locationSelect");
@@ -153,9 +156,11 @@ class App extends Component {
                     <div className = "control-panel" >
                         <FilterArea filterLocsByKeyword = { this.filterLocsByKeyword } filterLocsBySelect = { this.filterLocsBySelect }/>  
                         <LocationList error = { locsError } isLoaded = { isLocsLoaded } locations = { this.state.displayedLocations } markers = { this.state.markersArr }/>
-                    </div> 
+                    </div>
+                    <div id="map-wrapper">
                     <div id = "map" ref = { this.map } role = "application" >
                     </div> 
+                    </div>
                 </div >
             );
     }
