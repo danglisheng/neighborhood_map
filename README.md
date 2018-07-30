@@ -7,7 +7,7 @@
   - [yarn start](#npm-start或yarn-start)
   - [yarn build](#npm-run-build或yarn-build)
 - [程序流程图](#程序流程图)
-- [使用的第三方API](#使用的第三方API)
+- [使用的第三方API](#使用的第三方api)
 
 
 ## 可用脚本
