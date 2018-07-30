@@ -45,7 +45,7 @@ class Utils {
     }
     static removeLoader(node) {
         var loaderWrapper = document.querySelector(".loader-wrapper");
-        node.removeChild(loaderWrapper);
+        loaderWrapper&&node.removeChild(loaderWrapper);
     }
     /* 处理读取的地点对象，返回地点数组。
      * 为地点对象每个属性值（类型为数组）所包含的元素都增加一个

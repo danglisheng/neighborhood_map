@@ -7,7 +7,7 @@ class LocationItem extends Component {
 	}
 	locEnterHandler(e){
 		if(e.keyCode===13){
-			this.props.locClickHandler(this.locationItem.current);
+			this.props.locClickHandler(this.locationItem.current,e);
 		}
 	}
 	render(){
@@ -17,7 +17,7 @@ class LocationItem extends Component {
 					id={location.id}
 					tabIndex="0"
 					ref={this.locationItem}
-					onKeyDown={this.locEnterHandler}
+					onKeyDown={(e)=>{this.locEnterHandler(e)}}
 					onClick={(e)=>{this.props.locClickHandler(this.locationItem.current,e)}}>
 					{location.name}</li>
 

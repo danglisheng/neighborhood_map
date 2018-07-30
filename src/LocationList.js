@@ -8,7 +8,7 @@ class LocationList extends Component {
 		this.locClickHandler=this.locClickHandler.bind(this);
 	}
 	locClickHandler(clickedLocation,e){
-		// console.log(e);
+		
 		e.preventDefault();
 		const markers=this.props.markers;
 		var listNode=this.listNode.current;
