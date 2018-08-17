@@ -5,8 +5,7 @@ class FilterArea extends Component {
 		this.textInputNode=React.createRef();
 	}
 	render() {
-		const filterLocsBySelect=this.props.filterLocsBySelect;
-		const filterLocsByKeyword=this.props.filterLocsByKeyword;
+		const { filterLocsByKeyword,filterLocsBySelect } = this.props;
 		return (
 			<div className="filter-area">
 				<div className="filter-select">

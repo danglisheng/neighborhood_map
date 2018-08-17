@@ -2,9 +2,9 @@
 import React, { Component } from "react";
 import "./App.css";
 import LocationList from "./LocationList";
-import Utils from './utils'
-import FilterArea from './FilterArea'
-import AppHeader from './AppHeader'
+import Utils from "./utils";
+import FilterArea from "./FilterArea";
+import AppHeader from "./AppHeader";
 class App extends Component {
     constructor(props) {
         super(props);
@@ -17,9 +17,7 @@ class App extends Component {
             displayedLocations: [], //用于显示的地点数组
             markersArr: [] //标记数组
         };
-        this.filterLocsByKeyword = this.filterLocsByKeyword.bind(this);
-        this.filterLocsBySelect = this.filterLocsBySelect.bind(this);
-        this.map = React.createRef();
+        this.map = null;
     }
     /* 在App组件安装后，同时异步加载位置数据和地图API,并在它们的回调函数中做判断，仅当两者都加载完成，才在地图上添加标记。*/
     componentDidMount() {
@@ -28,6 +26,7 @@ class App extends Component {
             if (data) {
                 const { isMapLoaded, isMarkersAdded } = this.state;
                 const locations = Utils.getLocations(data);
+                console.log("locations",locations);
                 this.setState({
                     isLocsLoaded: true,
                     locations: locations,
@@ -39,7 +38,8 @@ class App extends Component {
                     this.setState({ isMarkersAdded: true });
                     this.setState({ markersArr: markersArr });
                 }
-            } else if (error) {
+            } 
+             if (error) {
                 this.setState({ locsError: error });
             }
         });
@@ -48,10 +48,10 @@ class App extends Component {
             /* 把指示地图加载完成的状态设为真 */
             this.setState({ isMapLoaded: true });
             const { locations, isMarkersAdded } = this.state;
-            window.map = new AMap.Map('map', {
+            window.map = new AMap.Map("map", {
                 zoom: 12, //地图缩放级别
                 center: [116.397428, 39.90923], //中心点坐标
-                viewMode: '3D' //使用3D视图
+                viewMode: "3D" //使用3D视图
             });
 
             window.map.plugin(["AMap.ToolBar"], function() {
@@ -68,10 +68,12 @@ class App extends Component {
                 this.setState({ markersArr: markersArr });
             }
             /* 使用tab键切换焦点时，忽略#map元素中的object元素*/
-            if(this.map.current.querySelector("object")){
-              this.map.current.querySelector("object").setAttribute("tabindex", "-1");  
+
+            if (this.map.querySelector("object")) {
+                this.map
+                    .querySelector("object")
+                    .setAttribute("tabindex", "-1");
             }
-            
         };
         /* 加载高德地图API */
         Utils.loadAmapAPI();
@@ -83,20 +85,21 @@ class App extends Component {
      * 指示此程序是否由下拉列表的change事件直接触发
      * 函数返回筛选后的地点数组。
      */
-    filterLocsBySelect(isInvokedBySelect,e) {
-        
-        if(e) {
+    filterLocsBySelect=(isInvokedBySelect, e) =>{
+        if (e) {
             e.preventDefault();
         }
-        
+
         const locations = this.state.locations;
         const markers = this.state.markersArr;
         const selectNode = document.getElementById("locationSelect");
         var displayedLocations = locations;
         window.infoWindow.close(); //关闭信息窗体
         /*如果由高亮的列表项，则取消高亮*/
-        if(document.querySelector(".location-focus")){
-            document.querySelector(".location-focus").classList.remove("location-focus");
+        if (document.querySelector(".location-focus")) {
+            document
+                .querySelector(".location-focus")
+                .classList.remove("location-focus");
         }
         const index = selectNode.selectedIndex;
         const locationType = selectNode[index].value; //下拉菜单所选选项的值
@@ -104,20 +107,20 @@ class App extends Component {
          * 而非被其他函数调用，则清空文本输入框。
          */
         if (isInvokedBySelect) {
-            document.getElementById("filterText").value = '';
+            document.getElementById("filterText").value = "";
         }
         /* 若下拉菜单所选选项不是“所有类型” */
-        if (locationType !== 'all') {
+        if (locationType !== "all") {
             /* 从包含所有地点的数组中筛选出选中类型的地点，组成新的数组 */
-            displayedLocations = locations.filter((location) => {
+            displayedLocations = locations.filter(location => {
                 return location.type === locationType;
             });
             /* 只显示与所选选项同类型的标记 */
             Utils.filterMarkersBySelect(markers, locationType);
             /* 如果由下拉菜单的change事件直接触发，则把筛选后的地点数组保存到App组件的状态中 */
             if (isInvokedBySelect) {
-            this.setState({ displayedLocations: displayedLocations });
-        }
+                this.setState({ displayedLocations: displayedLocations });
+            }
         } else {
             /* 把指示要显示地点的状态重置为所有地点数组*/
             this.setState({ displayedLocations: this.state.locations });
@@ -129,7 +132,7 @@ class App extends Component {
     /* 筛选按钮的click事件的事件处理程序
      * 它会根据文本输入框的值对地点数组进行筛选
      */
-    filterLocsByKeyword(textInputNode,e) {
+    filterLocsByKeyword=(textInputNode, e)=> {
         e.preventDefault();
         const markers = this.state.markersArr;
         /* 关键词筛选所用地点数组来自下拉菜单筛选所得的结果*/
@@ -138,7 +141,7 @@ class App extends Component {
         if (textInputNode) {
             const keyWord = textInputNode.value.trim();
             /* 筛选出name属性名中包含关键字的地点，组成一个新数组 */
-            displayedLocations = displayedLocations.filter((location) => {
+            displayedLocations = displayedLocations.filter(location => {
                 return location.name.indexOf(keyWord) !== -1;
             });
             /* 只显示过滤后地点数组的相关标记 */
@@ -146,23 +149,29 @@ class App extends Component {
             /* 设置App组件中指示待显示地点数组的状态 */
             this.setState({ displayedLocations: displayedLocations });
         }
-
     }
     render() {
-            const { isLocsLoaded, locsError } = this.state;
-            return (
-                <div className = "App" >
-                    <AppHeader / >
-                    <div className = "control-panel" >
-                        <FilterArea filterLocsByKeyword = { this.filterLocsByKeyword } filterLocsBySelect = { this.filterLocsBySelect }/>  
-                        <LocationList error = { locsError } isLoaded = { isLocsLoaded } locations = { this.state.displayedLocations } markers = { this.state.markersArr }/>
-                    </div>
-                    <div id="map-wrapper">
-                    <div id = "map" ref = { this.map } role = "application" >
-                    </div> 
-                    </div>
-                </div >
-            );
+        const { isLocsLoaded, locsError,displayedLocations,markersArr } = this.state;
+        return (
+            <div className="App">
+                <AppHeader />
+                <div className="control-panel">
+                    <FilterArea
+                        filterLocsByKeyword={this.filterLocsByKeyword}
+                        filterLocsBySelect={this.filterLocsBySelect}
+                    />
+                    <LocationList
+                        error={locsError}
+                        isLoaded={isLocsLoaded}
+                        locations={displayedLocations}
+                        markers={markersArr}
+                    />
+                </div>
+                <div id="map-wrapper">
+                    <div id="map" ref={(ele)=>{this.map=ele;}} role="application" />
+                </div>
+            </div>
+        );
     }
 }
 

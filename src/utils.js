@@ -8,10 +8,10 @@ class Utils {
      * 参考链接：http://imweb.io/topic/57c6ea35808fd2fb204eef63
      */
     static _fetch(fetchPromise, timeout) {
-        var abort_promise = new Promise(function(resolve, reject) {
+        let abort_promise = new Promise(function(resolve, reject) {
             setTimeout(reject, timeout, "abort promise");
         });
-        var abortable_promise = Promise.race([fetchPromise, abort_promise]);
+        let abortable_promise = Promise.race([fetchPromise, abort_promise]);
         return abortable_promise;
     }
     /* 获取服务器上的json格式文件，
@@ -331,7 +331,7 @@ class Utils {
                 .classList.remove("location-focus");
         }
     }
-    /* 当改变窗口大小时，重置菜单状态。此函数是为了防止在PC端小窗口下打开菜单，然后把窗口拉大后，同时应用小窗口下菜单打开时的样式和大窗口下的样式，而使页面错乱*/
+    /* 当改变窗口宽度时，重置菜单状态。此函数是为了防止在PC端小窗口下打开菜单，然后把窗口拉大后，同时应用小窗口下菜单打开时的样式和大窗口下的样式，而使页面错乱*/
     static resetMenuWhileResizeWin() {
         const body = document.querySelector("body");
         let lastWinWidth = window.innerWidth;
