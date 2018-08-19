@@ -1,4 +1,6 @@
 /*global AMap */
+import {store} from './index';
+import {setFocusedLoc} from './actions';
 class Utils {
     /* 带有超时的fetch,该函数接收两个参数：
      * 第一个参数为fetch()函数调用后返回的promise，
@@ -94,6 +96,7 @@ class Utils {
         locations.forEach(location => {
             markersArr.push(Utils.addMarkerForLocation(location));
         });
+       
         /* 当所有标记都被添加到地图后，再为它们一一绑定事件*/
         markersArr.forEach(marker => {
             AMap.event.addListener(marker, "click", function() {
@@ -105,22 +108,12 @@ class Utils {
                         mk.setAnimation("AMAP_ANIMATION_NONE");
                     }
                 });
-
-                var highlight = document.querySelector(".location-focus");
-                var relatedLoc = document.getElementById(marker.id);
-                /* 如果存在高亮的地点项 */
-                if (highlight) {
-                    /* 如果点击标记不对应高亮地点项，取消该高亮，
-                     * 并为点击标记对应的地点项增加高亮。
-                     */
-                    if (highlight.id !== marker.id.toString()) {
-                        highlight.classList.remove("location-focus");
-                        relatedLoc.classList.add("location-focus");
-                    }
-                } else {
-                /* 若不存在高亮地点项，则为点击标记所对应的地点项添加高亮。*/
-                    relatedLoc.classList.add("location-focus");
+                var focusedId=store.getState().focusedId;
+                if(focusedId!==marker.id){
+                     store.dispatch(setFocusedLoc(marker.id));
                 }
+               
+                
             });
         });
         /* 返回包含所有标记的数组 */
@@ -136,41 +129,9 @@ class Utils {
             marker.setAnimation("AMAP_ANIMATION_BOUNCE");
         }
     }
-    /* 该函数用于通过下拉菜单来过滤标记，传入两个参数：
-     * 要过滤的标记数组markers和地点类型locationType  
-     */
-    static filterMarkersBySelect(markers, locationType) {
-        markers.forEach(marker => {
-            marker.setAnimation("AMAP_ANIMATION_NONE"); //取消所有标记动画
-            /* 如果标记的类型和所选地点项类型相同，则显示，否则隐藏*/
-            if (marker.type !== locationType) {
-                marker.hide();
-            } else {
-                marker.show();
-            }
-        });
-    }
-    /* 该函数用于通过关键字来过滤标记，传入两个参数：
-     * 要过滤的标记数组markers和用于显示的地点数组displayedLocations
-     */
-    static filterMarkersByKeyword(markers, displayedLocations) {
-        markers.forEach(marker => {
-            marker.hide();
-            displayedLocations.forEach(location => {
-                if (location.id === marker.id) {
-                    marker.show();
-                }
-            });
-        });
-    }
-    /* 该函数用于显示所有标记，需传入一个参数：
-     * 要显示的标记数组。
-     */
-    static showAllMarkers(markers) {
-        markers.forEach(marker => {
-            marker.show();
-        });
-    }
+    
+    
+   
     /* 该函数用于填充信息窗体 
      * 它接收两个参数：标记marker和代表列表中被点击地点项的DOM节点
      * 第二个参数为可选参数。
